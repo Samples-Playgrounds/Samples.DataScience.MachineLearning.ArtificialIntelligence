@@ -1,0 +1,6 @@
+@StatisticsSuite.WebApi_HostAddress = http://localhost:5273
+
+GET {{StatisticsSuite.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
