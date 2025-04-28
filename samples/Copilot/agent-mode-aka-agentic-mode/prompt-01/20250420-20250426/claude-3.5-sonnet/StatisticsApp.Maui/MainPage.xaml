@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StatisticsApp.Maui.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="25" Padding="30,0" VerticalOptions="Center">
+
+            <Label 
+                Text="Statistical Analysis"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="32"
+                HorizontalOptions="Center" />
+
+            <Entry
+                x:Name="DataEntry"
+                Placeholder="Enter numbers (comma-separated)"
+                Text="{Binding DataInput}"
+                SemanticProperties.Hint="Enter your numbers separated by commas"
+                HorizontalOptions="Fill" />
+
+            <Button
+                x:Name="AnalyzeBtn"
+                Text="Analyze Data"
+                SemanticProperties.Hint="Analyzes the entered numerical data"
+                Clicked="OnAnalyzeClicked"
+                HorizontalOptions="Center" />
+
+            <Label
+                x:Name="ErrorLabel"
+                TextColor="Red"
+                IsVisible="False"
+                HorizontalOptions="Center" />
+
+            <Grid ColumnDefinitions="Auto,*" RowSpacing="10" IsVisible="False" x:Name="ResultsGrid">
+                <Label Grid.Row="0" Grid.Column="0" Text="Mean: " />
+                <Label Grid.Row="0" Grid.Column="1" x:Name="MeanLabel" />
+                
+                <Label Grid.Row="1" Grid.Column="0" Text="Median: " />
+                <Label Grid.Row="1" Grid.Column="1" x:Name="MedianLabel" />
+                
+                <Label Grid.Row="2" Grid.Column="0" Text="Mode: " />
+                <Label Grid.Row="2" Grid.Column="1" x:Name="ModeLabel" />
+                
+                <Label Grid.Row="3" Grid.Column="0" Text="Std Dev: " />
+                <Label Grid.Row="3" Grid.Column="1" x:Name="StdDevLabel" />
+                
+                <Label Grid.Row="4" Grid.Column="0" Text="Range: " />
+                <Label Grid.Row="4" Grid.Column="1" x:Name="RangeLabel" />
+                
+                <Label Grid.Row="5" Grid.Column="0" Text="Q1: " />
+                <Label Grid.Row="5" Grid.Column="1" x:Name="Q1Label" />
+                
+                <Label Grid.Row="6" Grid.Column="0" Text="Q3: " />
+                <Label Grid.Row="6" Grid.Column="1" x:Name="Q3Label" />
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

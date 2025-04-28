@@ -1,0 +1,117 @@
+@page "/statistics"
+@using StatisticsApp.BlazorWasm.Services
+@inject StatisticsService StatisticsService
+
+<h3>Statistical Analysis</h3>
+
+<div class="mb-3">
+    <label for="dataInput" class="form-label">Enter numbers (comma-separated):</label>
+    <input id="dataInput" class="form-control" @bind="dataInput" @bind:event="oninput" />
+    <small class="text-muted">Example: 2.4, 4.1, 3.5, 7.8, 9.2</small>
+</div>
+
+<button class="btn btn-primary" @onclick="AnalyzeData">Analyze Data</button>
+
+@if (errorMessage != null)
+{
+    <div class="alert alert-danger mt-3">
+        @errorMessage
+    </div>
+}
+
+@if (result != null)
+{
+    <div class="mt-4">
+        <h4>Results</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Mean</th>
+                            <td>@result.Mean.ToString("F2")</td>
+                        </tr>
+                        <tr>
+                            <th>Median</th>
+                            <td>@result.Median.ToString("F2")</td>
+                        </tr>
+                        <tr>
+                            <th>Mode</th>
+                            <td>@result.Mode.ToString("F2")</td>
+                        </tr>
+                        <tr>
+                            <th>Standard Deviation</th>
+                            <td>@result.StandardDeviation.ToString("F2")</td>
+                        </tr>
+                        <tr>
+                            <th>Variance</th>
+                            <td>@result.Variance.ToString("F2")</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Range</th>
+                            <td>@result.Range.ToString("F2")</td>
+                        </tr>
+                        <tr>
+                            <th>Minimum</th>
+                            <td>@result.Minimum.ToString("F2")</td>
+                        </tr>
+                        <tr>
+                            <th>Maximum</th>
+                            <td>@result.Maximum.ToString("F2")</td>
+                        </tr>
+                        <tr>
+                            <th>Q1 (25th percentile)</th>
+                            <td>@result.Quartiles.Q1.ToString("F2")</td>
+                        </tr>
+                        <tr>
+                            <th>Q3 (75th percentile)</th>
+                            <td>@result.Quartiles.Q3.ToString("F2")</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private string? dataInput;
+    private StatisticsResult? result;
+    private string? errorMessage;
+
+    private async Task AnalyzeData()
+    {
+        if (string.IsNullOrWhiteSpace(dataInput))
+        {
+            errorMessage = "Please enter some numbers";
+            return;
+        }
+
+        try
+        {
+            var numbers = dataInput.Split(',')
+                                 .Select(s => double.Parse(s.Trim()))
+                                 .ToList();
+
+            if (!numbers.Any())
+            {
+                errorMessage = "Please enter valid numbers";
+                return;
+            }
+
+            errorMessage = null;
+            result = await StatisticsService.AnalyzeDataAsync(numbers);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error: {ex.Message}";
+            result = null;
+        }
+    }
+}
