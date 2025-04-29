@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Statistics.MauiApp.MainPage"
+             Title="Descriptive Statistics">
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto,*,Auto" Padding="20">
+            <VerticalStackLayout Grid.Row="0" Spacing="10">
+                <Label Text="Descriptive Statistics" Style="{StaticResource Headline}" 
+                       SemanticProperties.HeadingLevel="Level1" HorizontalOptions="Center" />
+                <Label Text="MAUI Application" Style="{StaticResource SubHeadline}" 
+                       HorizontalOptions="Center" Margin="0,0,0,15" />
+            </VerticalStackLayout>
+            
+            <Grid Grid.Row="1" RowDefinitions="Auto,*" ColumnDefinitions="*,*" Padding="10" ColumnSpacing="20" RowSpacing="20">
+                <!-- Input Section -->
+                <VerticalStackLayout Grid.Row="0" Grid.Column="0" Spacing="10">
+                    <Label Text="Enter Data" FontSize="18" FontAttributes="Bold" />
+                    <Label Text="Enter numbers separated by commas, spaces, or new lines:" />
+                    <Editor x:Name="DataInput" HeightRequest="150" Placeholder="e.g. 10, 23, 45, 67, 89" />
+                    
+                    <HorizontalStackLayout Spacing="10" Margin="0,10,0,0">
+                        <Button Text="Analyze Data" Clicked="OnAnalyzeClicked" HorizontalOptions="Start" />
+                        <Button Text="Load Sample" Clicked="OnLoadSampleClicked" HorizontalOptions="Start" 
+                                BackgroundColor="#666666" />
+                        <Button Text="Clear" Clicked="OnClearClicked" HorizontalOptions="Start" 
+                                BackgroundColor="#ffcccc" TextColor="Black" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+                
+                <!-- Error Message -->
+                <Label x:Name="ErrorMessage" Grid.Row="0" Grid.Column="1" TextColor="Red"
+                       IsVisible="False" />
+                
+                <!-- Results Section -->
+                <ScrollView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                    <Border x:Name="ResultsPanel" IsVisible="False" Stroke="LightGray" 
+                            StrokeThickness="1" Padding="15">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="10">
+                            <Label Text="Statistics Results" FontSize="18" FontAttributes="Bold" />
+                            
+                            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" 
+                                  ColumnSpacing="15" RowSpacing="8">
+                                <BoxView Grid.Row="0" Grid.ColumnSpan="2" HeightRequest="1" Color="#f0f0f0" Margin="0,5" />
+                                
+                                <Label Grid.Row="1" Grid.Column="0" Text="Count:" FontAttributes="Bold" />
+                                <Label Grid.Row="1" Grid.Column="1" x:Name="CountValue" />
+                                
+                                <Label Grid.Row="2" Grid.Column="0" Text="Min:" FontAttributes="Bold" />
+                                <Label Grid.Row="2" Grid.Column="1" x:Name="MinValue" />
+                                
+                                <Label Grid.Row="3" Grid.Column="0" Text="Max:" FontAttributes="Bold" />
+                                <Label Grid.Row="3" Grid.Column="1" x:Name="MaxValue" />
+                                
+                                <Label Grid.Row="4" Grid.Column="0" Text="Range:" FontAttributes="Bold" />
+                                <Label Grid.Row="4" Grid.Column="1" x:Name="RangeValue" />
+                                
+                                <Label Grid.Row="5" Grid.Column="0" Text="Mean:" FontAttributes="Bold" />
+                                <Label Grid.Row="5" Grid.Column="1" x:Name="MeanValue" />
+                                
+                                <Label Grid.Row="6" Grid.Column="0" Text="Median:" FontAttributes="Bold" />
+                                <Label Grid.Row="6" Grid.Column="1" x:Name="MedianValue" />
+                                
+                                <Label Grid.Row="7" Grid.Column="0" Text="Mode:" FontAttributes="Bold" />
+                                <Label Grid.Row="7" Grid.Column="1" x:Name="ModeValue" />
+                                
+                                <Label Grid.Row="8" Grid.Column="0" Text="Standard Deviation:" FontAttributes="Bold" />
+                                <Label Grid.Row="8" Grid.Column="1" x:Name="StdDevValue" />
+                                
+                                <Label Grid.Row="9" Grid.Column="0" Text="Variance:" FontAttributes="Bold" />
+                                <Label Grid.Row="9" Grid.Column="1" x:Name="VarianceValue" />
+                                
+                                <Label Grid.Row="10" Grid.Column="0" Text="25th Percentile:" FontAttributes="Bold" />
+                                <Label Grid.Row="10" Grid.Column="1" x:Name="P25Value" />
+                                
+                                <Label Grid.Row="11" Grid.Column="0" Text="75th Percentile:" FontAttributes="Bold" />
+                                <Label Grid.Row="11" Grid.Column="1" x:Name="P75Value" />
+                                
+                                <Label Grid.Row="12" Grid.Column="0" Text="IQR:" FontAttributes="Bold" />
+                                <Label Grid.Row="12" Grid.Column="1" x:Name="IQRValue" />
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+                </ScrollView>
+            </Grid>
+            
+            <Label Grid.Row="2" Text="Statistics.Core Library Demonstration" 
+                   HorizontalOptions="Center" Margin="0,20,0,0" FontSize="Micro" TextColor="Gray" />
+        </Grid>
+    </ScrollView>
+
+</ContentPage>
