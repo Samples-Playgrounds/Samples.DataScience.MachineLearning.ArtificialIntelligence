@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/LLamaSharp/">
+    <Project Path="LLamaSharp\AppConsole.LLamaSharp\AppConsole.LLamaSharp.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/LMStudio/" />
+  <Folder Name="/Ollama/" />
+</Solution>
