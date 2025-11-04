@@ -1,6 +1,6 @@
-llama.cpp 1
+# Response
 
-http://127.0.0.1:8080/#/chat/conv-1756632248717
+response.md
 
 <|channel|>analysis<|message|>The user asks: "How to create Aspire app with YARP and 2 Blazor web servers". They likely want a guide on setting up a .NET Aspire project that uses YARP reverse proxy and hosts two Blazor web server apps. Provide steps: install .NET SDK, create Aspire solution, add YARP project (ASP.NET Core), add two Blazor WebAssembly or Server projects, configure YARP routes to each, use Aspire components, add to apphost, add health checks, configure ports, docker etc. Provide code snippets, csproj, Program.cs, appsettings.json. Provide explanation of Aspire's architecture (projects: AppHost, YARP service, two Blazor Web apps). Show how to register components, use Aspire's ServiceDefaults, use .AddYarpReverseProxy, etc.
 
@@ -53,7 +53,7 @@ You can change the routes, ports, or add TLS as you wish.
 
 ```bash
 # Create a new Aspire solution with a console host
-dotnet new aspire -n AspireYarpDemo -o AspireYarpDemo
+dotnet new aspire -n AspireYarpDemo -o AspireYarpDemo --framework net8.0
 cd AspireYarpDemo
 ```
 
@@ -70,7 +70,7 @@ AspireYarpDemo/
 ### 2. Add the YARP reverse‑proxy project  
 
 ```bash
-dotnet new webapi -n Aspire.YarpProxy -o Aspire.YarpProxy
+dotnet new webapi -n Aspire.YarpProxy -o Aspire.YarpProxy -f net8.0
 dotnet sln add Aspire.YarpProxy/Aspire.YarpProxy.csproj
 ```
 
@@ -96,28 +96,15 @@ using Yarp.ReverseProxy.Transforms;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add YARP services
-builder.Services
-            .AddReverseProxy()
-            .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"))
-            // Optional: add a simple transform to preserve the original host header
-            .AddTransforms
-                    (
-                      builderContext
-                      => 
-                      {
-                        builderContext.AddRequestTransform
-                                                (
-                                                  async transformContext 
-                                                  =>
-                                                  {
-                                                    // Keep the original Host header (useful for auth scenarios)
-                                                    transformContext.ProxyRequest.Headers.Host 
-                                                    = 
-                                                    transformContext.HttpContext.Request.Host.Value;
-                                                  }
-                                                );
-                      }
-                    );
+builder.Services.AddReverseProxy()
+    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"))
+    // Optional: add a simple transform to preserve the original host header
+    .AddTransforms(builderContext => {
+        builderContext.AddRequestTransform(async transformContext => {
+            // Keep the original Host header (useful for auth scenarios)
+            transformContext.ProxyRequest.Headers.Host = transformContext.HttpContext.Request.Host.Value;
+        });
+    });
 
 var app = builder.Build();
 
@@ -181,8 +168,8 @@ Create **Aspire.YarpProxy/appsettings.json** (replace any existing):
 You can choose **Server** or **WebAssembly hosted**. The example below uses **Blazor Server** because it’s the simplest to run behind a reverse proxy.
 
 ```bash
-dotnet new blazorserver -n BlazorWeb1 -o BlazorWeb1
-dotnet new blazorserver -n BlazorWeb2 -o BlazorWeb2
+dotnet new blazorserver -n BlazorWeb1 -o BlazorWeb1 -f net8.0
+dotnet new blazorserver -n BlazorWeb2 -o BlazorWeb2 -f net8.0
 dotnet sln add BlazorWeb1/BlazorWeb1.csproj
 dotnet sln add BlazorWeb2/BlazorWeb2.csproj
 ```
@@ -471,13 +458,13 @@ dotnet new aspire -n AspireYarpDemo -o AspireYarpDemo
 cd AspireYarpDemo
 
 # 2️⃣ Add YARP proxy
-dotnet new webapi -n Aspire.YarpProxy -o Aspire.YarpProxy
+dotnet new webapi -n Aspire.YarpProxy -o Aspire.YarpProxy -f net8.0
 dotnet sln add Aspire.YarpProxy/Aspire.YarpProxy.csproj
 dotnet add Aspire.YarpProxy/Aspire.YarpProxy.csproj package Microsoft.ReverseProxy
 
 # 3️⃣ Add two Blazor Server apps
-dotnet new blazorserver -n BlazorWeb1 -o BlazorWeb1
-dotnet new blazorserver -n BlazorWeb2 -o BlazorWeb2
+dotnet new blazorserver -n BlazorWeb1 -o BlazorWeb1 -f net8.0
+dotnet new blazorserver -n BlazorWeb2 -o BlazorWeb2 -f net8.0
 dotnet sln add BlazorWeb1/BlazorWeb1.csproj
 dotnet sln add BlazorWeb2/BlazorWeb2.csproj
 
