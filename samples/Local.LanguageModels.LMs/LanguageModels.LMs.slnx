@@ -1,7 +1,16 @@
 <Solution>
-  <Folder Name="/LLamaSharp/">
-    <Project Path="LLamaSharp\AppConsole.LLamaSharp\AppConsole.LLamaSharp.csproj" Type="Classic C#" />
+  <Folder Name="/libraries-source/">
+    <Project Path="HolisticWare.AI.GenAI.LanguageModels/HolisticWare.AI.GenAI.LanguageModels.csproj" />
   </Folder>
+  <Folder Name="/LLamaSharp/" />
   <Folder Name="/LMStudio/" />
   <Folder Name="/Ollama/" />
+  <Folder Name="/samples/" />
+  <Folder Name="/samples/apps/" />
+  <Folder Name="/samples/apps/Console/">
+    <Project Path="llama.cpp/AppConsole.LLamaCpp.AgentProcess/AppConsole.LLamaCpp.AgentProcess.csproj" />
+  </Folder>
+  <Folder Name="/samples/apps/Console/SciSharp--LLamaSharp/">
+    <Project Path="llama.cpp/SciSharp--LLamaSharp/AppConsole.LLamaSharp/AppConsole.LLamaSharp.csproj" />
+  </Folder>
 </Solution>
