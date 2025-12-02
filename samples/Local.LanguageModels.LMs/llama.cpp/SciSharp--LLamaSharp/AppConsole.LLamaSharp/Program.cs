@@ -2,7 +2,7 @@
 using LLama;
 
 string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-string model_path = $"{home}/Downloads/phi-2.Q5_K_S.gguf";
+string model_path = $"{home}/Downloads/holisticware/gen-ai/models/phi-2.Q5_K_S.gguf";
 
 LLama.Common.ModelParams model_parameters = new (model_path)
                                             {
@@ -23,20 +23,18 @@ chat_history.AddMessage
                     (
                         LLama.Common.AuthorRole.System,
                         """
-                        Transcript of a dialog, where the User interacts with an Assistant 
-                        named Bob. Bob is helpful, kind, honest, good at writing, and never 
-                        fails to answer the User's requests immediately and with precision.
+                        Act as a helpful AI scientific and coding assistant.
+                        Instructions/input and responses/output are in markdown format.
+                        Assistant is an intelligent chatbot designed to help users answer technical questions about 
+                            *   .NET
+                            *   C#
+                            *   MAUI
+                            *   Blazor
+                        Assistant answers questions using the context below and if it is not sure of an answer, the output
+                        can be:
+                        
+                            "Not familiar with this topic!!"
                         """
-                    );
-chat_history.AddMessage
-                    (
-                        LLama.Common.AuthorRole.User,
-                        "Hello, Bob."
-                    );
-chat_history.AddMessage
-                    (
-                        LLama.Common.AuthorRole.Assistant,
-                        "Hello. How may I help you today?"
                     );
 
 
@@ -51,12 +49,18 @@ LLama.Common.InferenceParams inferenceParams = new ()
                                                                         {
                                                                             "User:"
                                                                         },
-
                                                     SamplingPipeline = new LLama.Sampling.DefaultSamplingPipeline(),
                                                 };
 
 Console.ForegroundColor = ConsoleColor.Yellow;
-Console.Write("The chat session has started.\nUser: ");
+Console.Write
+            (
+                """
+                The chat session has started.
+
+                User: 
+                """
+            );
 Console.ForegroundColor = ConsoleColor.Green;
 string userInput = Console.ReadLine() ?? "";
 
