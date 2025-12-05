@@ -1,0 +1,42 @@
+# .editorconfig for SpectreConsoleOutput.cs formatting style
+root = true
+
+[*.cs]
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+charset = utf-8
+
+# C# specific settings
+csharp_new_line_before_open_brace = all
+csharp_new_line_between_method_declaration_parameters = true
+csharp_new_line_between_method_call_parameters = true
+csharp_new_line_between_query_expression_clauses = true
+csharp_new_line_before_members_in_object_initializers = true
+csharp_new_line_before_members_in_anonymous_types = true
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+csharp_new_line_before_while_in_do_statement = true
+csharp_new_line_before_accessors = true
+csharp_new_line_between_type_declaration_members = true
+csharp_indent_case_contents = true
+csharp_indent_switch_labels = true
+csharp_indent_labels = flush_left
+csharp_indent_block_contents = true
+csharp_indent_braces = false
+csharp_space_between_method_declaration_parameter_list_parentheses = false
+csharp_space_between_method_call_parameter_list_parentheses = false
+csharp_space_between_parentheses = false
+csharp_space_around_binary_operators = before_and_after
+csharp_preserve_single_line_statements = false
+csharp_preserve_single_line_blocks = false
+
+# Custom: Place each parameter on its own line
+csharp_new_line_between_parameters = true
+
+# Custom: Place return at end of each method
+# (No direct .editorconfig support, but can be enforced by code review or analyzer)
+
+# Custom: Align method signatures and parameters (requires manual formatting or analyzer)
